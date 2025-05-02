@@ -1,0 +1,34 @@
+const express = require('express')  //Chama o Express
+const app = express()  //Ativa o Express
+
+app.use(
+    express.urlencoded({
+      extended: true,
+    }),
+  )
+  
+  app.use(express.json())
+  
+  // Rotas/Endpoints
+  app.post('/createproduct', (req, res) => {
+    const name = req.body.name
+    const price = req.body.price
+
+    if (!name) {
+      res.status(422).json({ message: 'O campo nome é obrigatório!' })
+      return
+    }
+
+    console.log(name)
+    console.log(price)
+
+    //Aqui iria os códigos que enviariam os dados para o banco de dados
+
+    res.status(201).json({ message: `O produto ${name} foi criado com sucesso!` })
+  })
+
+  app.get('/', (req, res) => {
+    res.status(200).json({ message: 'Primeira rota criada com sucesso!' })
+  })
+
+  app.listen(3000)
